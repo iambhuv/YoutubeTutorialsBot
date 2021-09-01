@@ -1,4 +1,4 @@
-const { Client, Interaction, MessageEmbed, MessageAttachment } = require("discord.js");
+const { Client, Interaction, MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "mute",
