@@ -1,4 +1,5 @@
 const { Client, Interaction, MessageEmbed } = require("discord.js");
+const Schema = require("../../../../Sensor/models/GuildConfig");
 
 module.exports = {
   name: "unmute",
@@ -27,15 +28,20 @@ module.exports = {
 
       const embed = new MessageEmbed().setColor("GREEN");
 
-      let MutedRole = interaction.guild.roles.cache.find((r) => r.name === "Muted");
+      const GuildConfig = await Schema.findOne({
+        GuildId: guild.id,
+      });
 
-      if (!MutedRole) {
-        embed.setColor("RED").setDescription(`:x: No Muted Role Found, Use Mute to Create One`);
+      let MutedRole = interaction.guild.roles.cache.get(GuildConfig?.MutedRole);
+
+      if (!GuildConfig?.MutedRole || !MutedRole) {
+        embed.setColor(client.colors.error).setDescription(`<:sensorerror:874956574760767538> No Muted Role Found, Use Mute to Create One`);
+        await Schema.findOneAndUpdate({ GuildId: guild.id }, { MutedRole: null }, { upsert: true });
         return await interaction.reply({ embeds: [embed] });
       }
 
       if (!user.member.roles.cache.find((e) => e.name === "Muted")) {
-        embed.setColor("RED").setDescription(`:x: User Is Not Muted`);
+        embed.setColor(client.colors.error).setDescription(`<:sensorerror:874956574760767538> User Is Not Muted`);
         return await interaction.reply({ embeds: [embed] });
       }
 
