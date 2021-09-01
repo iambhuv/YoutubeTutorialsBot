@@ -21,5 +21,5 @@ npm i
 node index.js
 ```
 
-## Desclaimer
+## Important
 #### Make Sure You Have node version `v16.6.1` or Upper 
