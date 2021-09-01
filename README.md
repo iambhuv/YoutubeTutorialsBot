@@ -4,7 +4,7 @@ Free Source Code For My Discord.js Playlist
 
 ### Clone This Repo
 
-```st
+```bash
 git clone https://github.com/CodingWalaOfficial/YoutubeTutorialsBot.git
 ```
 
